@@ -1,0 +1,68 @@
+DROP TABLE IF EXISTS `Harakteristika_PK`;
+DROP TABLE IF EXISTS `PO`;
+DROP TABLE IF EXISTS `Kompiutery`;
+DROP TABLE IF EXISTS `Kabinety`;
+
+
+CREATE TABLE `Kompiutery` (
+	`Inventarnyi_nomer` INT(30) NOT NULL AUTO_INCREMENT,
+	`Imia_pk` varchar(255) NOT NULL,
+	`Proizvoditel` varchar(255) NOT NULL,
+	`Kabinet` INT(30) NOT NULL,
+	`Komplektuiushchee` varchar(255) NOT NULL,
+	PRIMARY KEY (`Inventarnyi_nomer`)
+);
+
+CREATE TABLE `Kabinety` (
+	`ID_Kabineta` INT(30) NOT NULL AUTO_INCREMENT,
+	`Nomer_kabineta` INT(30) NOT NULL,
+	`Kolichestvo mest` INT(30) NOT NULL,
+	PRIMARY KEY (`ID_Kabineta`)
+);
+
+CREATE TABLE `Harakteristika_PK` (
+	`ID_PC` INT(30) NOT NULL AUTO_INCREMENT,
+	`Proizvoditel` varchar(255) NOT NULL,
+	`Potreblenie_energii` INT(255) NOT NULL,
+	`PO_ID` INT(30) NOT NULL,
+	PRIMARY KEY (`ID_PC`)
+);
+
+CREATE TABLE  `PO` (
+	`PO_ID` INT(15) NOT NULL AUTO_INCREMENT,
+	`Vid` varchar(255) NOT NULL,
+	`Razrabotchik` VARCHAR(25) NOT NULL,
+	`Comp_info` VARCHAR(255) NOT NULL,
+	PRIMARY KEY (`PO_ID`)
+);
+
+ALTER TABLE `Kompiutery` ADD CONSTRAINT `Kompiutery_fk0` FOREIGN KEY (`Kabinet`) REFERENCES `Kabinety`(`ID_Kabineta`);
+
+ALTER TABLE `Harakteristika_PK` ADD CONSTRAINT `Harakteristika_PK_fk0` FOREIGN KEY (`PO_ID`) REFERENCES `PO`(`PO_ID`);
+
+ALTER TABLE `PO` ADD CONSTRAINT `PO_fk0` FOREIGN KEY (`Comp_info`) REFERENCES `Kompiutery`(`Inventarnyi_nomer`);
+
+
+
+INSERT INTO `Kabinety`(`Nomer_kabineta`, `Kolichestvo mest`) VALUES (103, 23);
+INSERT INTO `Kabinety`(`Nomer_kabineta`, `Kolichestvo mest`) VALUES (212, 22);
+INSERT INTO `Kabinety`(`Nomer_kabineta`, `Kolichestvo mest`) VALUES (207, 13);
+
+
+INSERT INTO `Kompiutery`(`Imia_pk`, `Proizvoditel`, `Kabinet`, `Komplektuiushchee`) VALUES ('Lenovo', 'Radeon', 1,'Klaviatura');
+INSERT INTO `Kompiutery`(`Imia_pk`, `Proizvoditel`, `Kabinet`, `Komplektuiushchee`) VALUES ('GEFORCE', 'GEFORCE', 2,'Mouse');
+INSERT INTO `Kompiutery`(`Imia_pk`, `Proizvoditel`, `Kabinet`, `Komplektuiushchee`) VALUES ('Apple', 'TSPK', 3,'Tablet');
+
+
+
+INSERT INTO `PO`( `Vid`, `Razrabotchik`) VALUES ( 'Игры' , 'XBOX' );
+INSERT INTO `PO`( `Vid`, `Razrabotchik`) VALUES ( 'Игры' , 'Sony' );
+INSERT INTO `PO`( `Vid`, `Razrabotchik`) VALUES ( 'Игры' , 'Microsoft' );
+INSERT INTO `PO`( `Vid`, `Razrabotchik`) VALUES ( 'Системное' , 'Microsoft' );
+
+INSERT INTO `Harakteristika_PK`(`Proizvoditel`, `Potreblenie_energii`, `PO_ID`) VALUES ('Radeon', 200, 1);
+INSERT INTO `Harakteristika_PK`(`Proizvoditel`, `Potreblenie_energii`, `PO_ID`) VALUES ('GEFORCE', 140, 2);
+INSERT INTO `Harakteristika_PK`(`Proizvoditel`, `Potreblenie_energii`, `PO_ID`) VALUES ('AMD', 180, 3);
+
+
+
