@@ -1,0 +1,370 @@
+-- phpMyAdmin SQL Dump
+-- version 4.9.7
+-- https://www.phpmyadmin.net/
+--
+-- Хост: localhost
+-- Время создания: Май 13 2022 г., 17:41
+-- Версия сервера: 5.7.21-20-beget-5.7.21-20-1-log
+-- Версия PHP: 5.6.40
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- База данных: `bagdanzp_polina`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `abutarient`
+--
+-- Создание: Май 13 2022 г., 10:48
+-- Последнее обновление: Май 13 2022 г., 11:23
+--
+
+DROP TABLE IF EXISTS `abutarient`;
+CREATE TABLE `abutarient` (
+  `id` int(11) NOT NULL,
+  `FIO` varchar(255) NOT NULL,
+  `Pasport_d` varchar(255) NOT NULL,
+  `telefon` int(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `abutarient`
+--
+
+INSERT INTO `abutarient` (`id`, `FIO`, `Pasport_d`, `telefon`) VALUES
+(1, 'Ivanov Sergei Pavlovich', '54437632', 432532),
+(2, 'Leonard Petrovich Zaicev', '54328723', 453243),
+(3, 'Korolev Vitalik Saimonov', '6473923', 436523),
+(4, 'Ivanov Sergei Pavlovich', '54437632', 432532),
+(5, 'Leonard Petrovich Zaicev', '54328723', 453243),
+(6, 'Korolev Vitalik Saimonov', '6473923', 436523);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `prais`
+--
+-- Создание: Май 13 2022 г., 10:48
+-- Последнее обновление: Май 13 2022 г., 11:24
+--
+
+DROP TABLE IF EXISTS `prais`;
+CREATE TABLE `prais` (
+  `id` int(25) NOT NULL,
+  `cena` int(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `prais`
+--
+
+INSERT INTO `prais` (`id`, `cena`) VALUES
+(1, 25000),
+(2, 50000),
+(3, 60000),
+(4, 25000),
+(5, 50000),
+(6, 60000);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `Prepod`
+--
+-- Создание: Май 13 2022 г., 10:48
+-- Последнее обновление: Май 13 2022 г., 11:35
+--
+
+DROP TABLE IF EXISTS `Prepod`;
+CREATE TABLE `Prepod` (
+  `id` int(25) NOT NULL,
+  `FIO` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `Prepod`
+--
+
+INSERT INTO `Prepod` (`id`, `FIO`) VALUES
+(1, 'Sergei Mihailovich Lisov'),
+(2, 'Portov Ivan Sergeevich'),
+(3, 'Solinin Dorn Zicov'),
+(4, 'Sergei Mihailovich Lisov'),
+(5, 'Portov Ivan Sergeevich'),
+(6, 'Solinin Dorn Zicov');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `profesii`
+--
+-- Создание: Май 13 2022 г., 11:40
+-- Последнее обновление: Май 13 2022 г., 11:45
+--
+
+DROP TABLE IF EXISTS `profesii`;
+CREATE TABLE `profesii` (
+  `id` int(25) NOT NULL,
+  `neme` varchar(255) NOT NULL,
+  `id_prepod` int(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `profesii`
+--
+
+INSERT INTO `profesii` (`id`, `neme`, `id_prepod`) VALUES
+(1, 'Texnic', 2),
+(2, 'Texnic po comp cictemam', 4),
+(3, 'Vospitatel', 3),
+(4, 'Texnic', 2),
+(5, 'Texnic po comp cictemam', 4),
+(6, 'Vospitatel', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `prohod`
+--
+-- Создание: Май 13 2022 г., 11:46
+-- Последнее обновление: Май 13 2022 г., 11:47
+--
+
+DROP TABLE IF EXISTS `prohod`;
+CREATE TABLE `prohod` (
+  `id` int(25) NOT NULL,
+  `bal` int(25) NOT NULL,
+  `predmet` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `prohod`
+--
+
+INSERT INTO `prohod` (`id`, `bal`, `predmet`) VALUES
+(1, 5, 'Informatica'),
+(2, 4, 'Informatica'),
+(3, 3, 'Istoria'),
+(4, 5, 'Informatica'),
+(5, 4, 'Informatica'),
+(6, 3, 'Istoria');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `specialnost`
+--
+-- Создание: Май 13 2022 г., 11:49
+-- Последнее обновление: Май 13 2022 г., 14:06
+--
+
+DROP TABLE IF EXISTS `specialnost`;
+CREATE TABLE `specialnost` (
+  `id` int(25) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `id_prais` int(25) NOT NULL,
+  `id_abutarient` int(25) NOT NULL,
+  `id_prohodl` int(25) NOT NULL,
+  `id_time_obuchen` int(25) NOT NULL,
+  `id_profesii` int(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `specialnost`
+--
+
+INSERT INTO `specialnost` (`id`, `name`, `id_prais`, `id_abutarient`, `id_prohodl`, `id_time_obuchen`, `id_profesii`) VALUES
+(9, 'Texnic vichislit sistem', 1, 1, 5, 1, 1),
+(10, 'Komputernii master', 3, 6, 4, 3, 5),
+(11, 'Vospitatel malenicih', 5, 5, 6, 5, 6),
+(12, 'Texnic vichislit sistem', 1, 1, 5, 1, 1),
+(13, 'Komputernii master', 3, 6, 4, 3, 5),
+(14, 'Vospitatel malenicih', 5, 5, 6, 5, 6);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `time_obuch`
+--
+-- Создание: Май 13 2022 г., 10:48
+-- Последнее обновление: Май 13 2022 г., 11:16
+--
+
+DROP TABLE IF EXISTS `time_obuch`;
+CREATE TABLE `time_obuch` (
+  `id` int(25) NOT NULL,
+  `time` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `time_obuch`
+--
+
+INSERT INTO `time_obuch` (`id`, `time`) VALUES
+(1, '0000-00-00 00:00:00'),
+(2, '0000-00-00 00:00:00'),
+(3, '0000-00-00 00:00:00'),
+(4, '0000-00-00 00:00:00'),
+(5, '0000-00-00 00:00:00'),
+(6, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Дублирующая структура для представления `view_cheto`
+-- (См. Ниже фактическое представление)
+--
+DROP VIEW IF EXISTS `view_cheto`;
+CREATE TABLE `view_cheto` (
+`id` int(25)
+,`name` varchar(255)
+,`id_prais` int(25)
+,`id_abutarient` int(25)
+,`id_prohodl` int(25)
+,`id_time_obuchen` int(25)
+,`id_profesii` int(25)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Структура для представления `view_cheto`
+--
+DROP TABLE IF EXISTS `view_cheto`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`bagdanzp_polina`@`localhost` SQL SECURITY DEFINER VIEW `view_cheto`  AS SELECT `specialnost`.`id` AS `id`, `specialnost`.`name` AS `name`, `specialnost`.`id_prais` AS `id_prais`, `specialnost`.`id_abutarient` AS `id_abutarient`, `specialnost`.`id_prohodl` AS `id_prohodl`, `specialnost`.`id_time_obuchen` AS `id_time_obuchen`, `specialnost`.`id_profesii` AS `id_profesii` FROM `specialnost` ;
+
+--
+-- Индексы сохранённых таблиц
+--
+
+--
+-- Индексы таблицы `abutarient`
+--
+ALTER TABLE `abutarient`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `prais`
+--
+ALTER TABLE `prais`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `Prepod`
+--
+ALTER TABLE `Prepod`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `profesii`
+--
+ALTER TABLE `profesii`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `profesii_fk0` (`id_prepod`);
+
+--
+-- Индексы таблицы `prohod`
+--
+ALTER TABLE `prohod`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `specialnost`
+--
+ALTER TABLE `specialnost`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `specialnost_fk0` (`id_prais`),
+  ADD KEY `specialnost_fk1` (`id_abutarient`),
+  ADD KEY `specialnost_fk2` (`id_prohodl`),
+  ADD KEY `specialnost_fk3` (`id_time_obuchen`),
+  ADD KEY `specialnost_fk4` (`id_profesii`);
+
+--
+-- Индексы таблицы `time_obuch`
+--
+ALTER TABLE `time_obuch`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT для сохранённых таблиц
+--
+
+--
+-- AUTO_INCREMENT для таблицы `abutarient`
+--
+ALTER TABLE `abutarient`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT для таблицы `prais`
+--
+ALTER TABLE `prais`
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT для таблицы `Prepod`
+--
+ALTER TABLE `Prepod`
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT для таблицы `profesii`
+--
+ALTER TABLE `profesii`
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT для таблицы `prohod`
+--
+ALTER TABLE `prohod`
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT для таблицы `specialnost`
+--
+ALTER TABLE `specialnost`
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT для таблицы `time_obuch`
+--
+ALTER TABLE `time_obuch`
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- Ограничения внешнего ключа сохраненных таблиц
+--
+
+--
+-- Ограничения внешнего ключа таблицы `profesii`
+--
+ALTER TABLE `profesii`
+  ADD CONSTRAINT `profesii_fk0` FOREIGN KEY (`id_prepod`) REFERENCES `Prepod` (`id`);
+
+--
+-- Ограничения внешнего ключа таблицы `specialnost`
+--
+ALTER TABLE `specialnost`
+  ADD CONSTRAINT `specialnost_fk0` FOREIGN KEY (`id_prais`) REFERENCES `prais` (`id`),
+  ADD CONSTRAINT `specialnost_fk1` FOREIGN KEY (`id_abutarient`) REFERENCES `abutarient` (`id`),
+  ADD CONSTRAINT `specialnost_fk2` FOREIGN KEY (`id_prohodl`) REFERENCES `prohod` (`id`),
+  ADD CONSTRAINT `specialnost_fk3` FOREIGN KEY (`id_time_obuchen`) REFERENCES `time_obuch` (`id`),
+  ADD CONSTRAINT `specialnost_fk4` FOREIGN KEY (`id_profesii`) REFERENCES `profesii` (`id`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
