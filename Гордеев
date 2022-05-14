@@ -1,0 +1,92 @@
+Код SQL
+DROP TABLE IF EXISTS Chas_Priema;
+DROP TABLE IF EXISTS Posechenie;
+DROP TABLE IF EXISTS Bolnie;
+DROP TABLE IF EXISTS Diagnozi;
+DROP TABLE IF EXISTS Kabinet;
+DROP TABLE IF EXISTS Personal;
+DROP TABLE IF EXISTS Specializacia;
+
+CREATE TABLE `Chas_Priema` (
+	`idPriem` INT(25) NOT NULL AUTO_INCREMENT,
+	`id_FIO_Bolnogo` INT(25) NOT NULL,
+	`id_Denb_Nedeli` INT(25) NOT NULL,
+	`id_Vremya_Priema` INT(25) NOT NULL,
+	`id_Kabinet` INT(25) NOT NULL,
+	`id_ID_Vracha` INT(25) NOT NULL,
+	PRIMARY KEY (`idPriem`)
+);
+
+CREATE TABLE `Kabinet` (
+	`idKab` INT(25) NOT NULL AUTO_INCREMENT,
+	`id_Kabinet` INT(25) NOT NULL,
+	PRIMARY KEY (`idKab`)
+);
+
+CREATE TABLE `Personal` (
+	`idPers` INT(25) NOT NULL AUTO_INCREMENT,
+	`id_ID_Vracha` INT(25) NOT NULL,
+	`id_FIO` INT(25) NOT NULL,
+	`id_Specializacia` INT(255) NOT NULL,
+	PRIMARY KEY (`idPers`)
+);
+
+CREATE TABLE `Specializacia` (
+	`idSpec` INT(25) NOT NULL AUTO_INCREMENT,
+	`id_Specializacia` varchar(255) NOT NULL,
+	PRIMARY KEY (`idSpec`)
+);
+
+CREATE TABLE `Posechenie` (
+	`idPosech` INT(25) NOT NULL AUTO_INCREMENT,
+	`id_FIO_Bolnogo` varchar(255) NOT NULL,
+	`id_№_Polisa` INT(25) NOT NULL,
+	`id_Data_Priema` INT(25) NOT NULL,
+	`id_Vremya_Priema` INT(25) NOT NULL,
+	`id_FIO_Vracha` varchar(255) NOT NULL,
+	PRIMARY KEY (`idPosech`)
+);
+
+CREATE TABLE `Bolnie` (
+	`idBolnoy` INT(25) NOT NULL AUTO_INCREMENT,
+	`id_№_Polisa` INT(25) NOT NULL,
+	`id_FIO_Bolnogo` varchar(255) NOT NULL,
+	`id_Bol_List` INT(25) NOT NULL,
+	PRIMARY KEY (`idBolnoy`)
+);
+
+CREATE TABLE `Diagnozi` (
+	`id` INT(25) NOT NULL AUTO_INCREMENT,
+	`id_Fobia` varchar(255) NOT NULL,
+	`id_Bol_List` varchar(25) NOT NULL,
+	PRIMARY KEY (`id`)
+);
+
+ALTER TABLE `Chas_Priema` ADD CONSTRAINT `Chas_Priema_fk0` FOREIGN KEY (`id_FIO_Bolnogo`) REFERENCES `Posechenie`(`idPosech`);
+
+ALTER TABLE `Chas_Priema` ADD CONSTRAINT `Chas_Priema_fk1` FOREIGN KEY (`id_Kabinet`) REFERENCES `Kabinet`(`idKab`);
+
+ALTER TABLE `Chas_Priema` ADD CONSTRAINT `Chas_Priema_fk2` FOREIGN KEY (`id_ID_Vracha`) REFERENCES `Personal`(`idPers`);
+
+ALTER TABLE `Personal` ADD CONSTRAINT `Personal_fk0` FOREIGN KEY (`id_Specializacia`) REFERENCES `Specializacia`(`idSpec`);
+
+ALTER TABLE `Posechenie` ADD CONSTRAINT `Posechenie_fk0` FOREIGN KEY (`id_№_Polisa`) REFERENCES `Bolnie`(`idBolnoy`);
+
+ALTER TABLE `Bolnie` ADD CONSTRAINT `Bolnie_fk0` FOREIGN KEY (`id_Bol_List`) REFERENCES `Diagnozi`(`id`);
+
+1.	Создайте запрос для вывода фамилий всех клиентов
+в названии диагнозов, есть слово "фобия"
+select b.id_FIO_Bolnogo, d.id_Fobia
+from Bolnie b, Diagnozi d
+where b.id_Bol_List = d.id
+2.	Выберите номера и фамилий всех клиентов с группировкой по количеству больничных листов
+select p.id_FIO_Bolnogo, p.id_№_Polisa, d.id_Bol_List
+from Posechenie p, Bolnie b, Diagnozi d
+where
+b.idBolnoy = d.id
+3.	Создайте запрос для вывода номеров и фамилий всех служащих
+select p.id_FIO, s.id_Specializacia , p.id_ID_Vracha
+from Personal p , Specializacia s
+where p.id_Specializacia = s.idSpec
+
+
