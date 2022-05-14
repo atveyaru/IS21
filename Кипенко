@@ -1,0 +1,79 @@
+drop table if EXISTS Clients;
+drop table if EXISTS Shows;
+drop table if EXISTS Sells;
+drop table if EXISTS Actors;
+
+
+CREATE TABLE `Clients` (
+`id_Client` INT(25) NOT NULL AUTO_INCREMENT,
+`First_name` varchar(50) NOT NULL,
+`Middle_name` varchar(50) NOT NULL,
+`Last_name` varchar(50) NOT NULL,
+PRIMARY KEY (`id_Client`)
+);
+
+CREATE TABLE `Shows` (
+`id_Show` INT(25) NOT NULL AUTO_INCREMENT,
+`name` varchar(255) NOT NULL UNIQUE,
+`ticket_price` INT(25) NOT NULL,
+`show_date` DATE NOT NULL,
+`total_tickets` INT(25) NOT NULL,
+PRIMARY KEY (`id_Show`)
+);
+
+CREATE TABLE `Sells` (
+`id_Sell` INT(25) NOT NULL AUTO_INCREMENT,
+`id_Client` INT(25) NOT NULL,
+`id_Show` INT(25) NOT NULL,
+PRIMARY KEY (`id_Sell`)
+);
+
+CREATE TABLE `Actors` (
+`id_Actor` INT(25) NOT NULL AUTO_INCREMENT,
+`First_name` varchar(50) NOT NULL,
+`Middle_name` varchar(50) NOT NULL,
+`Last_name` varchar(50) NOT NULL,
+`id_Show` INT(25) NOT NULL,
+PRIMARY KEY (`id_Actor`)
+);
+
+
+ALTER TABLE `Actors` ADD CONSTRAINT `Actors_fk0` FOREIGN KEY (`id_Show`) REFERENCES `Shows`(`id_Show`);
+
+ALTER TABLE `Sells` ADD CONSTRAINT `Sells_fk0` FOREIGN KEY (`id_Client`) REFERENCES `Clients`(`id_Client`);
+
+ALTER TABLE `Sells` ADD CONSTRAINT `Sells_fk1` FOREIGN KEY (`id_Show`) REFERENCES `Shows`(`id_Show`);
+
+INSERT INTO `Clients` (`id_Client`, `First_name`, `Middle_name`, `Last_name`) VALUES
+(1, 'Ivan', 'Ivan2', 'Ivanov'),
+(2, 'Mihail', 'Mihail2', 'Mehalivon'),
+(3, 'Liza', 'Liza2', 'Ilia');
+
+INSERT INTO `Shows` (`id_Show`, `name`, `ticket_price`, `show_date`, `total_tickets`) VALUES
+(1, 'VIP', 500, '1.04.2022', 125),
+(2, 'norm', 600, '1.04.2022', 300),
+(3, 'love', 700, '2.05.2023', 800);
+
+
+INSERT INTO `Sells` (`id_Sell`, `id_Client`, `id_Show`) VALUES
+(1, 1, 1),
+(2, 2, 2),
+(3, 3, 3);
+
+
+INSERT INTO `Actors` (`id_Actor`, `First_name`, `Middle_name`, `Last_name`, `id_Show`) VALUES
+(1, 'Dima', 'Dima2', 'Brodow', 1),
+(2, 'Anna', 'Anna2', 'Vasileva', 2),
+(3, 'Vika', 'Vika2', 'Vieilla', 3);
+
+------
+запросы
+------
+
+select last_name, count(1) from Actors a, shows s
+where a.id_Show = s.id_Show and s.show_date = '1.04.2022'
+
+select a.last_name, count(1) from Actors a, shows s
+where a.id_Show = s.id_Show
+group by a.last_name
+having count(1) > 10
