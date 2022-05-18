@@ -1,0 +1,77 @@
+drop table if EXISTS Dogovor;
+drop table if EXISTS Tur;
+drop table if EXISTS Gorod;
+drop table if EXISTS Marshrut;
+drop table if EXISTS Klienti;
+drop table if EXISTS Uslygi;
+drop table if EXISTS Kontragent;
+
+
+CREATE TABLE `Klienti` (
+`ID_klienta` INT(25) NOT NULL AUTO_INCREMENT,
+`Familia` varchar(11) NOT NULL,
+`Name` varchar(11) NOT NULL,
+PRIMARY KEY (`ID_klienta`)
+);
+
+CREATE TABLE `Marshrut` (
+`ID_Marshruta` INT(25) NOT NULL AUTO_INCREMENT,
+`Nazvanie_Marshruta` varchar(41) NOT NULL,
+PRIMARY KEY (`ID_Marshruta`)
+);
+
+CREATE TABLE `Gorod` (
+`ID_Goroda` INT(25) NOT NULL AUTO_INCREMENT,
+`Nasvanie_Goroda` varchar(11) NOT NULL,
+`ID_Marshruta` INT(25) NOT NULL,
+PRIMARY KEY (`ID_Goroda`)
+);
+
+CREATE TABLE `Uslygi` (
+`ID_Uslygi` INT(25) NOT NULL AUTO_INCREMENT,
+`Nasvanie_usl` varchar(41) NOT NULL,
+PRIMARY KEY (`ID_Uslygi`)
+);
+
+CREATE TABLE `Kontragent` (
+`ID_Kontragenta` INT(25) NOT NULL AUTO_INCREMENT,
+`Familia` varchar(11) NOT NULL,
+`Name` varchar(11) NOT NULL,
+`Dolszhnost` varchar(11) NOT NULL,
+PRIMARY KEY (`ID_Kontragenta`)
+);
+
+CREATE TABLE `Tur` (
+`ID_Tura` INT(25) NOT NULL AUTO_INCREMENT,
+`ID_Goroda` INT(25) NOT NULL,
+`Kol-vo_Chelovek` varchar(11) NOT NULL,
+`Data_ubitia` DATE NOT NULL,
+`Data_pribiria` DATE NOT NULL,
+`ID_Uslygi` INT(25) NOT NULL,
+PRIMARY KEY (`ID_Tura`)
+);
+
+CREATE TABLE `Dogovor` (
+`ID_Dogovora` INT(25) NOT NULL AUTO_INCREMENT,
+`ID_Kontragenta` INT(25) NOT NULL,
+`ID_Tura` INT(25) NOT NULL,
+`ID_Klienta` INT(25) NOT NULL,
+PRIMARY KEY (`ID_Dogovora`)
+);
+
+
+
+
+
+1-ый запрос:
+select Familia, Name from Klienti k
+where k.Familia like 'M%' 
+
+3-ий запрос:
+select Nasvanie_Goroda From Gorod g, Tur t, Marshrut m
+where t.ID_Goroda = g.ID_Goroda and g.ID_Marshruta = m.ID_Marshruta
+
+4-ый запрос:
+select k.ID_Kontragenta, k.Familia, count(1)from Kontragent k, Dogovor g
+where k.ID_Kontragenta = g.ID_Kontragenta
+group by k.ID_Kontragenta, k.Familia 
