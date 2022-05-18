@@ -1,0 +1,305 @@
+-- phpMyAdmin SQL Dump
+-- version 4.9.7
+-- https://www.phpmyadmin.net/
+--
+-- Хост: localhost
+-- Время создания: Май 18 2022 г., 10:28
+-- Версия сервера: 5.7.21-20-beget-5.7.21-20-1-log
+-- Версия PHP: 5.6.40
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- База данных: `bagdanzp_eq2`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `Dogovor`
+--
+-- Создание: Май 18 2022 г., 07:21
+-- Последнее обновление: Май 18 2022 г., 07:26
+--
+
+DROP TABLE IF EXISTS `Dogovor`;
+CREATE TABLE `Dogovor` (
+  `ID_Dogovora` int(25) NOT NULL,
+  `ID_Kontragenta` int(25) NOT NULL,
+  `ID_Tura` int(25) NOT NULL,
+  `ID_Klienta` int(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `Dogovor`
+--
+
+INSERT INTO `Dogovor` (`ID_Dogovora`, `ID_Kontragenta`, `ID_Tura`, `ID_Klienta`) VALUES
+(1, 321, 2311, 31231),
+(2, 131, 31231, 3131),
+(3, 321, 2311, 31231),
+(4, 131, 31231, 3131);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `Gorod`
+--
+-- Создание: Май 18 2022 г., 07:21
+-- Последнее обновление: Май 18 2022 г., 07:25
+--
+
+DROP TABLE IF EXISTS `Gorod`;
+CREATE TABLE `Gorod` (
+  `ID_Goroda` int(25) NOT NULL,
+  `Nasvanie_Goroda` varchar(11) NOT NULL,
+  `ID_Marshruta` int(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `Gorod`
+--
+
+INSERT INTO `Gorod` (`ID_Goroda`, `Nasvanie_Goroda`, `ID_Marshruta`) VALUES
+(1, 'wrqqw', 32131),
+(2, 'gww', 213131),
+(3, 'wrqqw', 32131),
+(4, 'gww', 213131);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `Klienti`
+--
+-- Создание: Май 18 2022 г., 07:21
+-- Последнее обновление: Май 18 2022 г., 07:25
+--
+
+DROP TABLE IF EXISTS `Klienti`;
+CREATE TABLE `Klienti` (
+  `ID_klienta` int(25) NOT NULL,
+  `Familia` varchar(11) NOT NULL,
+  `Name` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `Klienti`
+--
+
+INSERT INTO `Klienti` (`ID_klienta`, `Familia`, `Name`) VALUES
+(1, 'ewfew', 'tewtwtw'),
+(2, 'twetwt', 'ewtwt'),
+(3, 'ewfew', 'tewtwtw'),
+(4, 'twetwt', 'ewtwt');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `Kontragent`
+--
+-- Создание: Май 18 2022 г., 07:21
+-- Последнее обновление: Май 18 2022 г., 07:24
+--
+
+DROP TABLE IF EXISTS `Kontragent`;
+CREATE TABLE `Kontragent` (
+  `ID_Kontragenta` int(25) NOT NULL,
+  `Familia` varchar(11) NOT NULL,
+  `Name` varchar(11) NOT NULL,
+  `Dolszhnost` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `Kontragent`
+--
+
+INSERT INTO `Kontragent` (`ID_Kontragenta`, `Familia`, `Name`, `Dolszhnost`) VALUES
+(1, 'wqeqew', 'qweqeq', 'eqweq'),
+(2, 'qweq', 'eqewqe', 'qeqewq'),
+(3, 'wqeqew', 'qweqeq', 'eqweq'),
+(4, 'qweq', 'eqewqe', 'qeqewq');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `Marshrut`
+--
+-- Создание: Май 18 2022 г., 07:21
+-- Последнее обновление: Май 18 2022 г., 07:24
+--
+
+DROP TABLE IF EXISTS `Marshrut`;
+CREATE TABLE `Marshrut` (
+  `ID_Marshruta` int(25) NOT NULL,
+  `Nazvanie_Marshruta` varchar(41) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `Marshrut`
+--
+
+INSERT INTO `Marshrut` (`ID_Marshruta`, `Nazvanie_Marshruta`) VALUES
+(1, 'gdsgsgdsg'),
+(2, 'gdgsgdgg'),
+(3, 'gdsgsgdsg'),
+(4, 'gdgsgdgg');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `Tur`
+--
+-- Создание: Май 18 2022 г., 07:21
+-- Последнее обновление: Май 18 2022 г., 07:23
+--
+
+DROP TABLE IF EXISTS `Tur`;
+CREATE TABLE `Tur` (
+  `ID_Tura` int(25) NOT NULL,
+  `ID_Goroda` int(25) NOT NULL,
+  `Kol-vo_Chelovek` varchar(11) NOT NULL,
+  `Data_ubitia` date NOT NULL,
+  `Data_pribiria` date NOT NULL,
+  `ID_Uslygi` int(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `Tur`
+--
+
+INSERT INTO `Tur` (`ID_Tura`, `ID_Goroda`, `Kol-vo_Chelovek`, `Data_ubitia`, `Data_pribiria`, `ID_Uslygi`) VALUES
+(1, 121212, '11', '2022-05-01', '2022-05-02', 1212112),
+(2, 123121, '23', '2022-05-04', '2022-05-05', 0),
+(3, 121212, '11', '2022-05-01', '2022-05-02', 1212112),
+(4, 123121, '23', '2022-05-04', '2022-05-05', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `Uslygi`
+--
+-- Создание: Май 18 2022 г., 07:21
+-- Последнее обновление: Май 18 2022 г., 07:23
+--
+
+DROP TABLE IF EXISTS `Uslygi`;
+CREATE TABLE `Uslygi` (
+  `ID_Uslygi` int(25) NOT NULL,
+  `Nasvanie_usl` varchar(41) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `Uslygi`
+--
+
+INSERT INTO `Uslygi` (`ID_Uslygi`, `Nasvanie_usl`) VALUES
+(1, 'Tttttttt'),
+(2, 'yyyyyyy'),
+(3, 'Tttttttt'),
+(4, 'yyyyyyy');
+
+--
+-- Индексы сохранённых таблиц
+--
+
+--
+-- Индексы таблицы `Dogovor`
+--
+ALTER TABLE `Dogovor`
+  ADD PRIMARY KEY (`ID_Dogovora`);
+
+--
+-- Индексы таблицы `Gorod`
+--
+ALTER TABLE `Gorod`
+  ADD PRIMARY KEY (`ID_Goroda`);
+
+--
+-- Индексы таблицы `Klienti`
+--
+ALTER TABLE `Klienti`
+  ADD PRIMARY KEY (`ID_klienta`);
+
+--
+-- Индексы таблицы `Kontragent`
+--
+ALTER TABLE `Kontragent`
+  ADD PRIMARY KEY (`ID_Kontragenta`);
+
+--
+-- Индексы таблицы `Marshrut`
+--
+ALTER TABLE `Marshrut`
+  ADD PRIMARY KEY (`ID_Marshruta`);
+
+--
+-- Индексы таблицы `Tur`
+--
+ALTER TABLE `Tur`
+  ADD PRIMARY KEY (`ID_Tura`);
+
+--
+-- Индексы таблицы `Uslygi`
+--
+ALTER TABLE `Uslygi`
+  ADD PRIMARY KEY (`ID_Uslygi`);
+
+--
+-- AUTO_INCREMENT для сохранённых таблиц
+--
+
+--
+-- AUTO_INCREMENT для таблицы `Dogovor`
+--
+ALTER TABLE `Dogovor`
+  MODIFY `ID_Dogovora` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT для таблицы `Gorod`
+--
+ALTER TABLE `Gorod`
+  MODIFY `ID_Goroda` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT для таблицы `Klienti`
+--
+ALTER TABLE `Klienti`
+  MODIFY `ID_klienta` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT для таблицы `Kontragent`
+--
+ALTER TABLE `Kontragent`
+  MODIFY `ID_Kontragenta` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT для таблицы `Marshrut`
+--
+ALTER TABLE `Marshrut`
+  MODIFY `ID_Marshruta` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT для таблицы `Tur`
+--
+ALTER TABLE `Tur`
+  MODIFY `ID_Tura` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT для таблицы `Uslygi`
+--
+ALTER TABLE `Uslygi`
+  MODIFY `ID_Uslygi` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
