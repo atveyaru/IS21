@@ -1,0 +1,357 @@
+-- phpMyAdmin SQL Dump
+-- version 4.9.7
+-- https://www.phpmyadmin.net/
+--
+-- Хост: localhost
+-- Время создания: Май 18 2022 г., 12:58
+-- Версия сервера: 5.7.21-20-beget-5.7.21-20-1-log
+-- Версия PHP: 5.6.40
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- База данных: `bagdanzp_dan`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `albomi`
+--
+-- Создание: Май 18 2022 г., 09:36
+-- Последнее обновление: Май 18 2022 г., 09:39
+--
+
+DROP TABLE IF EXISTS `albomi`;
+CREATE TABLE `albomi` (
+  `id` int(25) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `id_treki` int(25) NOT NULL,
+  `id_ganor` int(25) NOT NULL,
+  `kolvo_trekov` int(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `albomi`
+--
+
+INSERT INTO `albomi` (`id`, `name`, `id_treki`, `id_ganor`, `kolvo_trekov`) VALUES
+(1, 'Kupola', 3, 1, 5),
+(2, 'zakat', 4, 5, 2),
+(3, 'fialki', 5, 6, 4),
+(4, 'Kupola', 3, 1, 5),
+(5, 'zakat', 4, 5, 2),
+(6, 'fialki', 5, 6, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `artisti`
+--
+-- Создание: Май 18 2022 г., 09:36
+-- Последнее обновление: Май 18 2022 г., 09:40
+--
+
+DROP TABLE IF EXISTS `artisti`;
+CREATE TABLE `artisti` (
+  `id` int(25) NOT NULL,
+  `FIO` varchar(255) NOT NULL,
+  `nomer` int(25) NOT NULL,
+  `id_albomai` int(25) NOT NULL,
+  `kolvo_albomov` int(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `artisti`
+--
+
+INSERT INTO `artisti` (`id`, `FIO`, `nomer`, `id_albomai`, `kolvo_albomov`) VALUES
+(1, 'Ilia Samoilov', 543287, 3, 3),
+(2, 'Mihail Drobih', 653487, 4, 2),
+(3, 'Zaichev Vicheslav', 546532, 5, 5),
+(4, 'Ilia Samoilov', 543287, 3, 3),
+(5, 'Mihail Drobih', 653487, 4, 2),
+(6, 'Zaichev Vicheslav', 546532, 5, 5);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `au-cictema`
+--
+-- Создание: Май 18 2022 г., 09:36
+-- Последнее обновление: Май 18 2022 г., 09:41
+--
+
+DROP TABLE IF EXISTS `au-cictema`;
+CREATE TABLE `au-cictema` (
+  `id` int(25) NOT NULL,
+  `id_artisti` int(25) NOT NULL,
+  `data` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `au-cictema`
+--
+
+INSERT INTO `au-cictema` (`id`, `id_artisti`, `data`) VALUES
+(1, 1, '2025-06-20 22:00:00'),
+(2, 5, '2026-06-20 22:00:00'),
+(3, 6, '2027-06-20 22:00:00'),
+(4, 1, '2025-06-20 22:00:00'),
+(5, 5, '2026-06-20 22:00:00'),
+(6, 6, '2027-06-20 22:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `ganor`
+--
+-- Создание: Май 18 2022 г., 09:36
+-- Последнее обновление: Май 18 2022 г., 09:37
+--
+
+DROP TABLE IF EXISTS `ganor`;
+CREATE TABLE `ganor` (
+  `id` int(25) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `ganor`
+--
+
+INSERT INTO `ganor` (`id`, `name`) VALUES
+(1, 'dgaz'),
+(2, 'pop'),
+(3, 'rok'),
+(4, 'dgaz'),
+(5, 'pop'),
+(6, 'rok');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `treki`
+--
+-- Создание: Май 18 2022 г., 09:36
+-- Последнее обновление: Май 18 2022 г., 09:36
+--
+
+DROP TABLE IF EXISTS `treki`;
+CREATE TABLE `treki` (
+  `id` int(25) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `treki`
+--
+
+INSERT INTO `treki` (`id`, `name`) VALUES
+(1, 'rozi'),
+(2, 'tulpani'),
+(3, 'gvozdi'),
+(4, 'rozi'),
+(5, 'tulpani'),
+(6, 'gvozdi');
+
+--
+-- Индексы сохранённых таблиц
+--
+
+--
+-- Индексы таблицы `albomi`
+--
+ALTER TABLE `albomi`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `albomi_fk0` (`id_treki`),
+  ADD KEY `albomi_fk1` (`id_ganor`);
+
+--
+-- Индексы таблицы `artisti`
+--
+ALTER TABLE `artisti`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `artisti_fk0` (`id_albomai`);
+
+--
+-- Индексы таблицы `au-cictema`
+--
+ALTER TABLE `au-cictema`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `au-cictema_fk0` (`id_artisti`);
+
+--
+-- Индексы таблицы `ganor`
+--
+ALTER TABLE `ganor`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `treki`
+--
+ALTER TABLE `treki`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT для сохранённых таблиц
+--
+
+--
+-- AUTO_INCREMENT для таблицы `albomi`
+--
+ALTER TABLE `albomi`
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT для таблицы `artisti`
+--
+ALTER TABLE `artisti`
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT для таблицы `au-cictema`
+--
+ALTER TABLE `au-cictema`
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT для таблицы `ganor`
+--
+ALTER TABLE `ganor`
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT для таблицы `treki`
+--
+ALTER TABLE `treki`
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- Ограничения внешнего ключа сохраненных таблиц
+--
+
+--
+-- Ограничения внешнего ключа таблицы `albomi`
+--
+ALTER TABLE `albomi`
+  ADD CONSTRAINT `albomi_fk0` FOREIGN KEY (`id_treki`) REFERENCES `treki` (`id`),
+  ADD CONSTRAINT `albomi_fk1` FOREIGN KEY (`id_ganor`) REFERENCES `ganor` (`id`);
+
+--
+-- Ограничения внешнего ключа таблицы `artisti`
+--
+ALTER TABLE `artisti`
+  ADD CONSTRAINT `artisti_fk0` FOREIGN KEY (`id_albomai`) REFERENCES `albomi` (`id`);
+
+--
+-- Ограничения внешнего ключа таблицы `au-cictema`
+--
+ALTER TABLE `au-cictema`
+  ADD CONSTRAINT `au-cictema_fk0` FOREIGN KEY (`id_artisti`) REFERENCES `artisti` (`id`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+
+
+
+
+
+
+
+
+1
+
+select t.name, g.name
+
+from treki t, ganor g, albomi a
+
+where a.id_treki = t.id 
+and a.id_ganor = g.id
+
+and g.name like "dgaz"
+
+2
+
+select a.id, a.nomer, a.FIO, a.kolvo_albomov
+from artisti a
+
+
+
+
+
+
+
+
+
+
+
+
+drop table if exists albomi;
+drop table if exists au_cictema;
+drop table if exists artisti;
+drop table if exists treki;
+drop table if exists ganor;
+
+CREATE TABLE `artisti` (
+	`id` INT(25) NOT NULL AUTO_INCREMENT,
+	`FIO` varchar(255) NOT NULL,
+	`nomer` INT(25) NOT NULL,
+	`id_albomai` INT(25) NOT NULL,
+	`kolvo_albomov` INT(25) NOT NULL,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `ganor` (
+	`id` INT(25) NOT NULL AUTO_INCREMENT,
+	`name` varchar(255) NOT NULL,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `au-cictema` (
+	`id` INT(25) NOT NULL AUTO_INCREMENT,
+	`id_artisti` INT(25) NOT NULL,
+	`data` DATETIME NOT NULL,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `albomi` (
+	`id` INT(25) NOT NULL AUTO_INCREMENT,
+	`name` varchar(255) NOT NULL,
+	`id_treki` INT(25) NOT NULL,
+	`id_ganor` INT(25) NOT NULL,
+	`kolvo_trekov` INT(25) NOT NULL,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `treki` (
+	`id` INT(25) NOT NULL AUTO_INCREMENT,
+	`name` varchar(255) NOT NULL,
+	PRIMARY KEY (`id`)
+);
+
+ALTER TABLE `artisti` ADD CONSTRAINT `artisti_fk0` FOREIGN KEY (`id_albomai`) REFERENCES `albomi`(`id`);
+
+ALTER TABLE `au-cictema` ADD CONSTRAINT `au-cictema_fk0` FOREIGN KEY (`id_artisti`) REFERENCES `artisti`(`id`);
+
+ALTER TABLE `albomi` ADD CONSTRAINT `albomi_fk0` FOREIGN KEY (`id_treki`) REFERENCES `treki`(`id`);
+
+ALTER TABLE `albomi` ADD CONSTRAINT `albomi_fk1` FOREIGN KEY (`id_ganor`) REFERENCES `ganor`(`id`);
+
+
+
+
+
