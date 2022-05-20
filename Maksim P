@@ -1,0 +1,234 @@
+-- phpMyAdmin SQL Dump
+-- version 4.9.7
+-- https://www.phpmyadmin.net/
+--
+-- Хост: localhost
+-- Время создания: Май 20 2022 г., 20:32
+-- Версия сервера: 5.7.21-20-beget-5.7.21-20-1-log
+-- Версия PHP: 5.6.40
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- База данных: `bagdanzp_mmm`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `abitarient`
+--
+-- Создание: Май 20 2022 г., 17:09
+-- Последнее обновление: Май 20 2022 г., 17:17
+--
+
+DROP TABLE IF EXISTS `abitarient`;
+CREATE TABLE `abitarient` (
+  `id` int(25) NOT NULL,
+  `FIO` varchar(255) NOT NULL,
+  `nomer` int(25) NOT NULL,
+  `id_bali` int(25) NOT NULL,
+  `id_postuplenie` int(25) NOT NULL,
+  `id_special` int(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `abitarient`
+--
+
+INSERT INTO `abitarient` (`id`, `FIO`, `nomer`, `id_bali`, `id_postuplenie`, `id_special`) VALUES
+(1, 'Zaicov Ivan Sergeevich', 543287, 1, 5, 4),
+(2, 'Aleksei Mixailovich Got', 653487, 3, 4, 5),
+(3, 'Nikolai Sergeevich Zaiac', 546532, 5, 3, 3),
+(4, 'Zaicov Ivan Sergeevich', 543287, 1, 5, 4),
+(5, 'Aleksei Mixailovich Got', 653487, 3, 4, 5),
+(6, 'Nikolai Sergeevich Zaiac', 546532, 5, 3, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `bali`
+--
+-- Создание: Май 20 2022 г., 17:09
+-- Последнее обновление: Май 20 2022 г., 17:12
+--
+
+DROP TABLE IF EXISTS `bali`;
+CREATE TABLE `bali` (
+  `id` int(25) NOT NULL,
+  `bal` int(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `bali`
+--
+
+INSERT INTO `bali` (`id`, `bal`) VALUES
+(1, 3),
+(2, 5),
+(3, 2),
+(4, 3),
+(5, 5),
+(6, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `postuplenie`
+--
+-- Создание: Май 20 2022 г., 17:09
+-- Последнее обновление: Май 20 2022 г., 17:12
+--
+
+DROP TABLE IF EXISTS `postuplenie`;
+CREATE TABLE `postuplenie` (
+  `id` int(25) NOT NULL,
+  `itog` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `postuplenie`
+--
+
+INSERT INTO `postuplenie` (`id`, `itog`) VALUES
+(1, 'postupil'),
+(2, 'postupil'),
+(3, 'nepostupil'),
+(4, 'postupil'),
+(5, 'postupil'),
+(6, 'nepostupil');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `special`
+--
+-- Создание: Май 20 2022 г., 17:09
+-- Последнее обновление: Май 20 2022 г., 17:11
+--
+
+DROP TABLE IF EXISTS `special`;
+CREATE TABLE `special` (
+  `id` int(25) NOT NULL,
+  `special` varchar(255) NOT NULL,
+  `treb_bal` int(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `special`
+--
+
+INSERT INTO `special` (`id`, `special`, `treb_bal`) VALUES
+(1, 'stroitel', 3),
+(2, 'programist', 5),
+(3, 'povar', 4),
+(4, 'stroitel', 3),
+(5, 'programist', 5),
+(6, 'povar', 4);
+
+--
+-- Индексы сохранённых таблиц
+--
+
+--
+-- Индексы таблицы `abitarient`
+--
+ALTER TABLE `abitarient`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `abitarient_fk0` (`id_bali`),
+  ADD KEY `abitarient_fk1` (`id_postuplenie`),
+  ADD KEY `abitarient_fk2` (`id_special`);
+
+--
+-- Индексы таблицы `bali`
+--
+ALTER TABLE `bali`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `postuplenie`
+--
+ALTER TABLE `postuplenie`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `special`
+--
+ALTER TABLE `special`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT для сохранённых таблиц
+--
+
+--
+-- AUTO_INCREMENT для таблицы `abitarient`
+--
+ALTER TABLE `abitarient`
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT для таблицы `bali`
+--
+ALTER TABLE `bali`
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT для таблицы `postuplenie`
+--
+ALTER TABLE `postuplenie`
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT для таблицы `special`
+--
+ALTER TABLE `special`
+  MODIFY `id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- Ограничения внешнего ключа сохраненных таблиц
+--
+
+--
+-- Ограничения внешнего ключа таблицы `abitarient`
+--
+ALTER TABLE `abitarient`
+  ADD CONSTRAINT `abitarient_fk0` FOREIGN KEY (`id_bali`) REFERENCES `bali` (`id`),
+  ADD CONSTRAINT `abitarient_fk1` FOREIGN KEY (`id_postuplenie`) REFERENCES `postuplenie` (`id`),
+  ADD CONSTRAINT `abitarient_fk2` FOREIGN KEY (`id_special`) REFERENCES `special` (`id`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+--Создайте запрос для вывода фамилий всех абитуриентов
+которые не поступили.
+select a.FIO, p.itog
+
+from abitarient a, postuplenie p
+
+where a.id_postuplenie = p.id
+
+and p.itog like "nepostupil"
+
+
+--Выберите номера и фамилий всех абитуриентов
+с группировкой по среднему балу
+
+
+select a.id, a.FIO, a.nomer, b.bal
+
+from abitarient a, bali b
+
+where a.id_bali = b.id
