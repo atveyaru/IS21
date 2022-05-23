@@ -1,0 +1,32 @@
+Создайте запрос для вывода всех профессий
+в разрезе специальностей
+
+SELECT p.id, s.id, p.neme AS profesii, s.name AS specialnost
+FROM profesii p, specialnost s
+
+WHERE p.id = s.id
+
+Выберите номера специальностей
+с группировкой по количеству необходимых предметов для поступления
+
+SELECT  s.id, s.name AS specialnost, p.predmet
+FROM specialnost s, prohod p
+WHERE s.id = p.id
+
+Выберите все специальности. Исключите специальности, проходной бал который меньше [4.5].
+
+
+select s.name, p.bal
+from specialnost s, prohod p
+where 1=1 
+ and p.bal > 4
+and s.id_prohodl = p.id
+
+Выберите номера и фамилий всех преподавателей
+с грппировкой по профессиям
+
+select p.id, pr.neme, p.FIO
+from Prepod p, profesii pr
+where
+p.id = pr.id_prepod;
+
