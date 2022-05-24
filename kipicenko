@@ -1,0 +1,143 @@
+//Дамб базы
+
+drop table if EXISTS Contract;
+drop table if EXISTS Tour;
+drop table if EXISTS City;
+drop table if EXISTS Routes;
+drop table if EXISTS Clients;
+drop table if EXISTS Services;
+drop table if EXISTS Workers;
+
+
+CREATE TABLE `Clients` (
+`ID_clients` INT(25) NOT NULL AUTO_INCREMENT,
+`name` varchar(11) NOT NULL,
+`surname` varchar(11) NOT NULL,
+PRIMARY KEY (`ID_clients`)
+);
+
+CREATE TABLE `City` (
+`ID_city` INT(25) NOT NULL AUTO_INCREMENT,
+`city_name` varchar(11) NOT NULL,
+`ID_route` INT(25) NOT NULL,
+PRIMARY KEY (`ID_city`)
+);
+
+CREATE TABLE `Services` (
+`ID_services` INT(25) NOT NULL AUTO_INCREMENT,
+`name_services` varchar(41) NOT NULL,
+PRIMARY KEY (`ID_services`)
+);
+
+CREATE TABLE `Workers` (
+`ID_ workers` INT(25) NOT NULL AUTO_INCREMENT,
+`name` varchar(11) NOT NULL,
+`surname` varchar(11) NOT NULL,
+`Dolszhnost` varchar(11) NOT NULL,
+PRIMARY KEY (`ID_ workers`)
+);
+
+CREATE TABLE `Tour` (
+`ID_tour` INT(25) NOT NULL AUTO_INCREMENT,
+`ID_city` INT(25) NOT NULL,
+`Kol-vo_Chelovek` varchar(11) NOT NULL,
+`Data_ubitia` DATE NOT NULL,
+`Data_pribitia` DATE NOT NULL,
+`ID_services` INT(25) NOT NULL,
+PRIMARY KEY (`ID_tour`)
+);
+
+CREATE TABLE `Contract` (
+`ID_contract` INT(25) NOT NULL AUTO_INCREMENT,
+`ID_workers` INT(25) NOT NULL,
+`ID_tour` INT(25) NOT NULL,
+`ID_client` INT(25) NOT NULL,
+PRIMARY KEY (`ID_contract`)
+);
+
+CREATE TABLE `Routes` (
+`ID_route` INT(25) NOT NULL AUTO_INCREMENT,
+`name_route` varchar(11) NOT NULL,
+PRIMARY KEY (`ID_route`)
+);
+
+ALTER TABLE `City` ADD CONSTRAINT `City_fk0` FOREIGN KEY (`ID_route`) REFERENCES `Routes`(`ID_route`);
+
+ALTER TABLE `Tour` ADD CONSTRAINT `Tour_fk0` FOREIGN KEY (`ID_city`) REFERENCES `City`(`ID_city`);
+
+ALTER TABLE `Tour` ADD CONSTRAINT `Tour_fk1` FOREIGN KEY (`ID_services`) REFERENCES `Services`(`ID_services`);
+
+ALTER TABLE `Contract` ADD CONSTRAINT `Contract_fk0` FOREIGN KEY (`ID_workers`) REFERENCES `Workers`(`ID_ workers`);
+
+ALTER TABLE `Contract` ADD CONSTRAINT `Contract_fk1` FOREIGN KEY (`ID_tour`) REFERENCES `Tour`(`ID_tour`);
+
+ALTER TABLE `Contract` ADD CONSTRAINT `Contract_fk2` FOREIGN KEY (`ID_client`) REFERENCES `Clients`(`ID_clients`);
+
+INSERT INTO `Clients` (`ID_clients`, `name`, `surname`) VALUES
+(1, 'Ivan', 'Ivanow'),
+(2, 'Mihail', 'Mikolaev'),
+(3, 'Ilia', 'Misova'),
+(4, 'Ivan', 'Kipenko'),
+(5, 'Alexey', 'Kipicenko'),
+(6, 'Vladimir', 'Burin');
+
+INSERT INTO `Routes` (`ID_route`, `name_route`) VALUES
+(1, 'camolet'),
+(2, 'poezd');
+
+INSERT INTO `City` (`ID_city`, `city_name`, `ID_route`) VALUES
+(1, 'Sochi', 1),
+(2, 'Piter', 2),
+(3, 'Moskva', 1),
+(4, 'Vladivostok', 1),
+(5, 'Xygir', 2),
+(6, 'Dubai', 1);
+
+INSERT INTO `Services` (`ID_services`, `name_services`) VALUES
+(1, 'arenda avto'),
+(2, 'oformlenie viza'),
+(3, 'prodaga biletov'),
+(4, 'bronirovavie restoranov'),
+(5, 'sms informatirovanie'),
+(6, 'strahovanie clienta');
+
+INSERT INTO `Workers` (`ID_ workers`, `name`, `surname`, `Dolszhnost`) VALUES
+(1, 'Liza', 'Gladnikova', 'Agent'),
+(2, 'Dima', 'Petrov', 'Menedger'),
+(3, 'Alexey', 'Vasilei', 'Director'),
+(4, 'Alexandr', 'Korol', 'Perevodchik');
+
+
+INSERT INTO `Tour` (`ID_tour`, `ID_city`, `Kol-vo_Chelovek`, `Data_ubitia`, `Data_pribitia`, `ID_services`) VALUES
+(1, 1, '5', '01.05.2002', '02.04.2002', 1),
+(2, 5, '5', '01.06.2002', '02.05.2002', 3),
+(3, 1, '5', '01.07.2002', '02.06.2002', 4),
+(4, 3, '5', '01.08.2002', '02.07.2002', 5),
+(5, 1, '5', '01.09.2002', '02.08.2002', 2),
+(6, 1, '5', '01.10.2002', '02.09.2002', 6);
+
+INSERT INTO `Contract` (`ID_contract`, `ID_workers`, `ID_tour`, `ID_client`) VALUES
+(1, 3, 4, 3),
+(2, 1, 5, 2),
+(3, 2, 1, 6);
+
+// Запросы
+
+1) Создайте запрос для вывода фамилий всех клиентов
+фамилия которого содержит букву «М»
+
+SELECT c.surname, c.name FROM clients c WHERE c.surname LIKE 'M%'
+
+3)Выберите все туры компани. Исключите страны, где нет железнодорожного сообщения.
+
+select city_name From city c, Tour t, Routes r where t.ID_city = c.ID_city and c.ID_route = r.ID_route
+
+4)Создайте запрос для вывода номеров и фамилий всех служащих,
+с минимальными заказами по месяцам
+
+select c.ID_clients, c.surname, count(1)from Clients c, Contract g
+where c.ID_clients = g.ID_client
+group by c.ID_clients, c.surname
+
+
+//Кипиченко АЛексей ис-21
