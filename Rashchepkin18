@@ -1,0 +1,257 @@
+-- phpMyAdmin SQL Dump
+-- version 4.9.7
+-- https://www.phpmyadmin.net/
+--
+-- Хост: localhost
+-- Время создания: Май 13 2022 г., 15:30
+-- Версия сервера: 5.7.21-20-beget-5.7.21-20-1-log
+-- Версия PHP: 5.6.40
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- База данных: `bagdanzp_rashepk`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `Pokupatel`
+--
+-- Создание: Май 13 2022 г., 11:30
+-- Последнее обновление: Май 13 2022 г., 12:06
+--
+
+DROP TABLE IF EXISTS `Pokupatel`;
+CREATE TABLE `Pokupatel` (
+  `id pokupatelya` int(11) NOT NULL,
+  `FIO_Pokupatelya` varchar(255) NOT NULL,
+  `Data_Rozhdeniya` int(11) NOT NULL,
+  `Pasport` int(11) NOT NULL,
+  `Mesto_Rozhdeniya` varchar(255) NOT NULL,
+  `Adress` varchar(255) NOT NULL,
+  `Telephone` int(11) NOT NULL,
+  `Email` varchar(255) NOT NULL,
+  `Skidka_Pokupatelya` int(11) NOT NULL,
+  `Index` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `Pokupatel`
+--
+
+INSERT INTO `Pokupatel` (`id pokupatelya`, `FIO_Pokupatelya`, `Data_Rozhdeniya`, `Pasport`, `Mesto_Rozhdeniya`, `Adress`, `Telephone`, `Email`, `Skidka_Pokupatelya`, `Index`) VALUES
+(1, 'Andrey Petovich', 2000, 185593, 'Moscow', 'Pushkina', 55454, 'andrey@mail.ru', 90, 19491),
+(3, 'Maxim Olegovich', 1980, 343939, 'Saint-Petersburg', 'Grebneva', 93939, 'maxim@mail.ru', 80, 39334),
+(5, 'Makar Murzilka', 1900, 88282, 'Berlin', 'Hahaha', 392323, 'nemec@mail.ru', 35, 49459),
+(7, 'Vadim Rusramovich', 1955, 21314, 'Kazan', 'Tatarskaya', 32132, 'tatarin@mail.ru', 12, 13223);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `Price`
+--
+-- Создание: Май 13 2022 г., 11:30
+-- Последнее обновление: Май 13 2022 г., 12:03
+--
+
+DROP TABLE IF EXISTS `Price`;
+CREATE TABLE `Price` (
+  `id price` int(11) NOT NULL,
+  `Price` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `Price`
+--
+
+INSERT INTO `Price` (`id price`, `Price`) VALUES
+(1, 500),
+(3, 228),
+(5, 230),
+(7, 99);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `Prodavec`
+--
+-- Создание: Май 13 2022 г., 11:30
+-- Последнее обновление: Май 13 2022 г., 12:04
+--
+
+DROP TABLE IF EXISTS `Prodavec`;
+CREATE TABLE `Prodavec` (
+  `id prodavca` int(11) NOT NULL,
+  `Fio_Prodavca` varchar(255) NOT NULL,
+  `id otdela` int(11) NOT NULL,
+  `id dolzhnosti` int(11) NOT NULL,
+  `Pasport` int(11) NOT NULL,
+  `Adress` varchar(255) NOT NULL,
+  `Telefon` int(11) NOT NULL,
+  `Email` varchar(255) NOT NULL,
+  `Index` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `Prodavec`
+--
+
+INSERT INTO `Prodavec` (`id prodavca`, `Fio_Prodavca`, `id otdela`, `id dolzhnosti`, `Pasport`, `Adress`, `Telefon`, `Email`, `Index`) VALUES
+(1, 'Oleg Ivanovich', 228, 235, 194848, 'Kolotushkina', 34249, 'oleg@mail.ru', 29239),
+(3, 'Nikita Olegovich', 929, 234, 94954, 'Pavlova', 43534, 'nikita@mail.ru', 34243),
+(5, 'Mazay Dmitrievich', 249, 324, 93294, 'Smirnova', 23443, 'mazay@mail.ru', 31231),
+(7, 'Anatoliy Fedorovich', 213, 132, 124431, 'Moryakov', 23424, 'tolyan@mail.ru', 232343);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `Tovar`
+--
+-- Создание: Май 13 2022 г., 11:30
+-- Последнее обновление: Май 13 2022 г., 12:06
+--
+
+DROP TABLE IF EXISTS `Tovar`;
+CREATE TABLE `Tovar` (
+  `id tovara` int(11) NOT NULL,
+  `Name_Tovara` varchar(255) NOT NULL,
+  `Tip_Tovara` varchar(255) NOT NULL,
+  `Price` int(11) NOT NULL,
+  `Nacenka` int(11) NOT NULL,
+  `Kod_Postavshika` int(11) NOT NULL,
+  `Uchetnoe_Kollicestvo` int(11) NOT NULL,
+  `Fakticeskoe_Kollichestvo` int(11) NOT NULL,
+  `Izobrazhenie` varchar(255) NOT NULL,
+  `id prodazh` int(11) NOT NULL,
+  `id price` int(11) NOT NULL,
+  `id pokupatelya` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `Tovar`
+--
+
+INSERT INTO `Tovar` (`id tovara`, `Name_Tovara`, `Tip_Tovara`, `Price`, `Nacenka`, `Kod_Postavshika`, `Uchetnoe_Kollicestvo`, `Fakticeskoe_Kollichestvo`, `Izobrazhenie`, `id prodazh`, `id price`, `id pokupatelya`) VALUES
+(1, 'Computer', 'PC', 500, 228, 228, 228, 229, 'Urodskoe', 1, 1, 1),
+(3, 'Sony 228 AHAHA', 'Naushniki', 228, 230, 230, 228, 229, 'Lylyaoya', 3, 3, 3),
+(5, 'PP-2228', 'Klaviatura', 100, 12000, 231, 123, 154, 'Takoye', 5, 5, 5),
+(7, 'Smeshnaya klava', 'Klaviatura', 123, 125, 1231, 125, 125, 'peper', 7, 7, 7);
+
+--
+-- Индексы сохранённых таблиц
+--
+
+--
+-- Индексы таблицы `Pokupatel`
+--
+ALTER TABLE `Pokupatel`
+  ADD PRIMARY KEY (`id pokupatelya`);
+
+--
+-- Индексы таблицы `Price`
+--
+ALTER TABLE `Price`
+  ADD PRIMARY KEY (`id price`);
+
+--
+-- Индексы таблицы `Prodavec`
+--
+ALTER TABLE `Prodavec`
+  ADD PRIMARY KEY (`id prodavca`);
+
+--
+-- Индексы таблицы `Tovar`
+--
+ALTER TABLE `Tovar`
+  ADD PRIMARY KEY (`id tovara`),
+  ADD KEY `Tovar_fk0` (`id prodazh`),
+  ADD KEY `Tovar_fk1` (`id price`),
+  ADD KEY `Tovar_fk2` (`id pokupatelya`);
+
+--
+-- AUTO_INCREMENT для сохранённых таблиц
+--
+
+--
+-- AUTO_INCREMENT для таблицы `Pokupatel`
+--
+ALTER TABLE `Pokupatel`
+  MODIFY `id pokupatelya` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT для таблицы `Price`
+--
+ALTER TABLE `Price`
+  MODIFY `id price` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT для таблицы `Prodavec`
+--
+ALTER TABLE `Prodavec`
+  MODIFY `id prodavca` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT для таблицы `Tovar`
+--
+ALTER TABLE `Tovar`
+  MODIFY `id tovara` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- Ограничения внешнего ключа сохраненных таблиц
+--
+
+--
+-- Ограничения внешнего ключа таблицы `Tovar`
+--
+ALTER TABLE `Tovar`
+  ADD CONSTRAINT `Tovar_fk0` FOREIGN KEY (`id prodazh`) REFERENCES `Prodavec` (`id prodavca`),
+  ADD CONSTRAINT `Tovar_fk1` FOREIGN KEY (`id price`) REFERENCES `Price` (`id price`),
+  ADD CONSTRAINT `Tovar_fk2` FOREIGN KEY (`id pokupatelya`) REFERENCES `Pokupatel` (`id pokupatelya`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+1.Создайте запрос для вывода всех клиентов
+фамилия которого содержит букву «Р»
+
+WHERE Rusramovich LIKE "??Р"
+
+2.Выберите номера и названия всех комплектующих
+с группировкой по типу ремонта
+
+CONSTRAINT PK_Computer PRIMARY KEY, 
+
+CONSTRAINT PK_Sony 228 AHAHA PRIMARY KEY
+
+CONSTRAINT PK_PP-2228 PRIMARY KEY
+
+CONSTRAINT PK_Smeshnaya klava PRIMARY KEY
+
+3.Выберите все клиентов. Исключите клиентов, кто не делал заказов в этом году.
+
+WHERE EXISTS (SELECT CustomerID FROM Orders WHERE Customers.CustomerID != Orders.CustomerID)
+
+4.Выберите номера и фамилий всех клиентов
+кто обращался более 10 раз
+
+SELECT 
+ c.[код клиента], с.[название], COUNT(*) as [Количество заказов]
+FROM
+ customer c
+ JOIN orders o ON c.[код клиента] = o.[код клиента]
+GROUP BY
+ c.[код клиента], с.[название]
+HAVING COUNT(*) > 3
+
