@@ -1,0 +1,12 @@
+1-ый запрос:
+select Familia, Name from Klienti k
+where k.Familia like 'M%' 
+
+3-ий запрос:
+select Nasvanie_Goroda From Gorod g, Tur t, Marshrut m
+where t.ID_Goroda = g.ID_Goroda and g.ID_Marshruta = m.ID_Marshruta
+
+4-ый запрос:
+select k.ID_Kontragenta, k.Familia, count(1)from Kontragent k, Dogovor g
+where k.ID_Kontragenta = g.ID_Kontragenta
+group by k.ID_Kontragenta, k.Familia 
