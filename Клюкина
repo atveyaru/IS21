@@ -1,0 +1,115 @@
+CREATE TABLE `kompanii` (
+	`id kompanii` INT NOT NULL AUTO_INCREMENT,
+	`kolvo sotrudnikov` INT NOT NULL,
+	`reg` varchar(25) NOT NULL,
+	`kolvo vakansiy` INT NOT NULL,
+	PRIMARY KEY (`id kompanii`)
+);
+
+CREATE TABLE `soiskateli` (
+	`id soiskatelya` INT NOT NULL AUTO_INCREMENT,
+	`fio` varchar(25) NOT NULL,
+	`nomer` INT NOT NULL,
+	`popitki trudoustroystva` INT NOT NULL,
+	PRIMARY KEY (`id soiskatelya`)
+);
+
+CREATE TABLE `vakansii` (
+	`id vakansii` INT NOT NULL AUTO_INCREMENT,
+	`data otkritiya` DATETIME NOT NULL,
+	`data zaktitiya` DATETIME NOT NULL,
+	`mesta` INT NOT NULL,
+	`id soiskatelya` INT NOT NULL,
+	`id kompsnii` INT NOT NULL,
+	PRIMARY KEY (`id vakansii`)
+);
+
+ALTER TABLE `vakansii` ADD CONSTRAINT `vakansii_fk0` FOREIGN KEY (`id soiskatelya`) REFERENCES `soiskateli`(`id soiskatelya`);
+
+ALTER TABLE `vakansii` ADD CONSTRAINT `vakansii_fk1` FOREIGN KEY (`id kompsnii`) REFERENCES `kompanii`(`id kompanii`);
+
+
+
+
+
+
+-- phpMyAdmin SQL Dump
+-- version 4.9.7
+-- https://www.phpmyadmin.net/
+--
+-- Хост: localhost
+-- Время создания: Май 13 2022 г., 18:17
+-- Версия сервера: 5.7.21-20-beget-5.7.21-20-1-log
+-- Версия PHP: 5.6.40
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- База данных: `bagdanzp_9var`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `kompanii`
+--
+-- Создание: Май 13 2022 г., 11:38
+-- Последнее обновление: Май 13 2022 г., 11:38
+--
+
+DROP TABLE IF EXISTS `kompanii`;
+CREATE TABLE `kompanii` (
+  `id kompanii` int(11) NOT NULL,
+  `kolvo sotrudnikov` int(11) NOT NULL,
+  `reg` varchar(25) NOT NULL,
+  `kolvo vakansiy` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `kompanii`
+--
+
+INSERT INTO `kompanii` (`id kompanii`, `kolvo sotrudnikov`, `reg`, `kolvo vakansiy`) VALUES
+(1, 20, 'da', 10),
+(2, 45, 'net', 25),
+(3, 10, 'da', 3);
+
+--
+-- Индексы сохранённых таблиц
+--
+
+--
+-- Индексы таблицы `kompanii`
+--
+ALTER TABLE `kompanii`
+  ADD PRIMARY KEY (`id kompanii`);
+
+--
+-- AUTO_INCREMENT для сохранённых таблиц
+--
+
+--
+-- AUTO_INCREMENT для таблицы `kompanii`
+--
+ALTER TABLE `kompanii`
+  MODIFY `id kompanii` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+-- Запрос 
+
+select k.`id kompanii`, k.`kolvo vakansiy`
+from kompanii k
