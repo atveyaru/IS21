@@ -1,0 +1,64 @@
+drop table if EXISTS Sells;
+drop table if EXISTS Goods;
+drop table if EXISTS Buyers;
+
+
+CREATE TABLE `Goods` (
+`id_goods` INT(25) NOT NULL AUTO_INCREMENT,
+`Name` varchar(50) NOT NULL,
+`Type` varchar(50) NOT NULL UNIQUE,
+`Capacity` INT NOT NULL,
+`Price` INT NOT NULL,
+PRIMARY KEY (`id_goods`)
+);
+
+CREATE TABLE `Buyers` (
+`id_buyer` INT(25) NOT NULL AUTO_INCREMENT,
+`First_name` varchar(50),
+`Middle_name` varchar(50),
+`Last_name` varchar(50) NOT NULL,
+PRIMARY KEY (`id_buyer`)
+);
+
+CREATE TABLE `Sells` (
+`id_sells` INT(25) NOT NULL AUTO_INCREMENT,
+`id_buyer` INT(25) NOT NULL,
+`id_goods` INT(25) NOT NULL,
+PRIMARY KEY (`id_sells`)
+);
+
+ALTER TABLE `Sells` ADD CONSTRAINT `Sells_fk0` FOREIGN KEY (`id_buyer`) REFERENCES `Buyers`(`id_buyer`);
+
+ALTER TABLE `Sells` ADD CONSTRAINT `Sells_fk1` FOREIGN KEY (`id_goods`) REFERENCES `Goods`(`id_goods`);
+
+
+INSERT INTO `Buyers` (`id_buyer`, `First_Name`, `Middle_Name`, `Last_Name`)
+VALUES
+(1, 'Love', 'Revenge', 'Arrow'),
+(2, 'Dead', 'Meow', 'kys'),
+(3, 'Forever', 'Alone', 'Dynasty');
+
+INSERT INTO `Goods` (`id_goods`, `Name`, `Type`, `Capacity`, `Price`)
+VALUES
+(1, 'Yabloko', 'Banan', '15', '1200'),
+(2, 'Zoloto', 'Silver', '100', '500'),
+(3, 'Monkey', 'Tiger', '450', '700'),
+(4, 'Dom', 'Fore', '715', '600');
+
+INSERT INTO `Sells` (`id_sells`, `id_buyer`, `id_goods`)
+VALUES
+(1, 1, 3),
+(2, 2, 4),
+(3, 3, 1);
+
+
+1-ый запрос:
+select name from goods
+where type = 'Silver'
+
+3-ий запрос:
+select b.`id_buyer`, b.`Last_name`, count(1) from `Buyers` b, `Sells` s
+where b.`id_buyer` = s.`id_buyer`
+group by b.`id_buyer`, b.`Last_name`
+
+Попов Руслан ИС-21
