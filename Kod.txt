@@ -1,0 +1,68 @@
+CREATE TABLE `specialnost` (
+	`id` INT(25) NOT NULL AUTO_INCREMENT,
+	`name` INT(25) NOT NULL,
+	`id_time_obuchen` INT(25) NOT NULL,
+	`id_prais` INT(25) NOT NULL,
+	`id_abutarient` INT(25) NOT NULL,
+	`id_kurs` INT(25) NOT NULL,
+	`id_prohod_bal` INT(25) NOT NULL,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `abutarient` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`FIO` varchar(255) NOT NULL,
+	`Pasport_d` varchar(255) NOT NULL,
+	`telefon` INT(25) NOT NULL,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `time_obuch` (
+	`id` INT(25) NOT NULL AUTO_INCREMENT,
+	`time` DATETIME NOT NULL,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `Prepod` (
+	`id` INT(25) NOT NULL AUTO_INCREMENT,
+	`FIO` varchar(255) NOT NULL,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `prohod_bal` (
+	`id` INT(25) NOT NULL AUTO_INCREMENT,
+	`bal` INT(25) NOT NULL,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `prais` (
+	`id` INT(25) NOT NULL AUTO_INCREMENT,
+	`cena` INT(25) NOT NULL,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `profesii` (
+	`id` INT(25) NOT NULL AUTO_INCREMENT,
+	`neme` INT(25) NOT NULL,
+	`id_prepod` INT(25) NOT NULL,
+	PRIMARY KEY (`id`)
+);
+
+ALTER TABLE `specialnost` ADD CONSTRAINT `specialnost_fk0` FOREIGN KEY (`id_time_obuchen`) REFERENCES `time_obuch`(`id`);
+
+ALTER TABLE `specialnost` ADD CONSTRAINT `specialnost_fk1` FOREIGN KEY (`id_prais`) REFERENCES `prais`(`id`);
+
+ALTER TABLE `specialnost` ADD CONSTRAINT `specialnost_fk2` FOREIGN KEY (`id_abutarient`) REFERENCES `abutarient`(`id`);
+
+ALTER TABLE `specialnost` ADD CONSTRAINT `specialnost_fk3` FOREIGN KEY (`id_kurs`) REFERENCES `profesii`(`id`);
+
+ALTER TABLE `specialnost` ADD CONSTRAINT `specialnost_fk4` FOREIGN KEY (`id_prohod_bal`) REFERENCES `prohod_bal`(`id`);
+
+ALTER TABLE `profesii` ADD CONSTRAINT `profesii_fk0` FOREIGN KEY (`id_prepod`) REFERENCES `Prepod`(`id`);
+
+
+
+
+
+
+
